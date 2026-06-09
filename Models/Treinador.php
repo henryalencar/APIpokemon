@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace Apipokemon\Models; //definindo o namespace para organizar o código e evitar conflitos de nomes
 use PDO; // Importando a classe PDO para manipulação de banco de dados
 use Exception; // Importando a classe Exception para tratamento de erros
@@ -28,25 +30,6 @@ class Treinador {
         return $stmt;
     }
 
-    // Lista apenas treinadores
-    public function getAlcoolicas(){
-        $query = "SELECT * FROM " . $this->tabela . " WHERE categoria = 'treinador'";
-
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-
-        return $stmt;
-    }
-
-    // Lista apenas treinadores não alcoólicos
-    public function getNaoAlcoolicas(){
-        $query = "SELECT * FROM " . $this->tabela . " WHERE categoria = 'treinador'";
-
-        $stmt = $this->db->prepare($query);
-        $stmt->execute();
-
-        return $stmt;
-    }
 
     //METODO CONSTRUTOR PARA RECEBER A CONEXAO COM O BANCO DE DADOS
 
@@ -60,8 +43,8 @@ class Treinador {
         $query = 'SELECT
         p.idTreinador,
         p.nome,
-        p.idade,
-        p.cidade
+        p.cidade,
+        p.idade
         FROM
         ' . $this->tabela . ' p
         WHERE
@@ -84,8 +67,29 @@ class Treinador {
         $this->idade = $row['idade'];
         $this->cidade = $row['cidade'];
         
-        
-        
+
+    }
+
+    public function add(){  //ADICIONA UM NOVO TREINADOR NO BANCO DE DADOS VIA POST, RECEBENDO OS DADOS DA POKEMON VIA PROPRIEDADES DO OBJETO
+        $query = "INSERT INTO " . $this->tabela . " (nome, idade, cidade) VALUES (:nome, :idade,  :cidade)";
+
+        $stmt = $this->db->prepare($query);
+
+        // Limpa os dados para evitar SQL Injection e XSS (Cross-Site Scripting)
+        $this->nome=htmlspecialchars(strip_tags($this->nome)); 
+        $this->idade=htmlspecialchars(strip_tags($this->idade));
+        $this->cidade=htmlspecialchars(strip_tags($this->cidade));
+
+        // Bind dos valores
+        $stmt->bindParam(":nome", $this->nome);
+        $stmt->bindParam(":idade", $this->idade);
+        $stmt->bindParam(":cidade", $this->cidade);
+
+        if($stmt->execute()){
+            return true;
+        }
+ 
+        return false;
 
     }
     

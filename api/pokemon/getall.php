@@ -1,5 +1,5 @@
 <?php
-// POKEMON
+// POKEMON LISTA TODOS OS POKEMONS CADASTRADOS NO BANCO DE DADOS
 
 // http://localhost/APIpokemon/api/pokemon/getall.php
 

@@ -1,5 +1,6 @@
 <?php
 //http://localhost/APIpokemon/pokemon.php
+//TESTE DE CONEXÃO COM O BANCO DE DADOS E MODELO POKEMON
 
 require_once __DIR__ . "/Config/Database.php";
 require_once __DIR__ . "/Models/Pokemon.php";
@@ -29,7 +30,7 @@ $pokemon->nome = 'Pikachu';
 $pokemon->tipo = 'Elétrico';
 $pokemon->nivel = 25;
 $pokemon->hp = 100;
-$pokemon->treinadores = 'Ash Ketchum';
+$pokemon->idtreinador = 1;
  
 // Vamos inspecionar o objeto!
 echo "<pre>"; // A tag <pre> ajuda a formatar a saída do print_r

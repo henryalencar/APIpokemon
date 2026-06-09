@@ -15,7 +15,7 @@ class Pokemon{
 
     public $hp;
 
-    public $treinadores;
+    public $idtreinador;
 
     private $db;
 
@@ -40,23 +40,22 @@ class Pokemon{
     public function get(){  // VAI NO BANCO DE DADOS E TRAZ APENAS A POKEMON COM O ID ESPECIFICADO
     // Cria a consulta
         $query = 'SELECT
-                p.idPokemon,
-                p.nome,
-                p.tipo,
-                p.nivel,
-                p.hp,
-                p.treinadores
-            FROM
-                ' . $this->tabela . ' p
-            WHERE
-                p.idPokemon = ?    
-            LIMIT 1';
+    p.idPokemon,
+    p.nome,
+    p.tipo,
+    p.nivel,
+    p.hp,
+    t.nome AS treinador
+    FROM pokemons p
+    LEFT JOIN treinadores t
+    ON p.idTreinador = t.idTreinador
+    WHERE p.idPokemon = :id';
  
         // Prepara a query
         $stmt = $this->db->prepare($query);
  
         // Vincula o ID
-        $stmt->bindParam(1, $this->id);
+        $stmt->bindParam(':id', $this->id);
        
         // Executa a query
         $stmt->execute();
@@ -68,12 +67,12 @@ class Pokemon{
         $this->tipo = $row['tipo'];
         $this->nivel = $row['nivel'];
         $this->hp = $row['hp'];
-        $this->treinadores = $row['treinadores'];
+        $this->idtreinador = $row['idTreinador'];
  
     }
 
     public function add(){  //ADICIONA UMA NOVA POKEMON NO BANCO DE DADOS VIA POST, RECEBENDO OS DADOS DA POKEMON VIA PROPRIEDADES DO OBJETO
-        $query = "INSERT INTO " . $this->tabela . " (nome, tipo, nivel, hp, treinadores) VALUES (:nome, :tipo, :nivel, :hp, :treinadores)";
+        $query = "INSERT INTO " . $this->tabela . "(nome, tipo, nivel, hp, idTreinador) VALUES (:nome, :tipo, :nivel, :hp, :idTreinador)";
 
         $stmt = $this->db->prepare($query);
 
@@ -82,14 +81,14 @@ class Pokemon{
         $this->tipo=htmlspecialchars(strip_tags($this->tipo));
         $this->nivel=htmlspecialchars(strip_tags($this->nivel));
         $this->hp=htmlspecialchars(strip_tags($this->hp));
-        $this->treinadores=htmlspecialchars(strip_tags($this->treinadores));
+        $this->idtreinador=htmlspecialchars(strip_tags($this->idtreinador));
 
         // Bind dos valores
         $stmt->bindParam(":nome", $this->nome);
         $stmt->bindParam(":tipo", $this->tipo);
         $stmt->bindParam(":nivel", $this->nivel);
         $stmt->bindParam(":hp", $this->hp);
-        $stmt->bindParam(":treinadores", $this->treinadores);
+        $stmt->bindParam(":idTreinador", $this->idtreinador);
 
         if($stmt->execute()){
             return true;

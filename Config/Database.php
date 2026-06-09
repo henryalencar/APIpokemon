@@ -3,10 +3,10 @@
 namespace Apipokemon\Config; //definindo o namespace para organizar o código e evitar conflitos de nomes
 use PDO; // Importando a classe PDO para facilitar a conexão com o banco de dados
 use PDOException; // Importando a classe PDOException para tratar erros de conexão
-use Throwable; // Importando a classe Throwable para capturar erros genéricos
+use Throwable; // Importando a classe Throwable para capturar erros genéricoss
 
 
-class Database{
+class Database{ // Classe para gerenciar a conexão com o banco de dados
 
 // IP DO SERVER
 private $host="localhost";

@@ -5,7 +5,7 @@ require_once __DIR__ . "/Config/Database.php";
 echo "<h1>Testando Conexão com o Banco de Dados</h1>";
  
 //instantia a classe de conexao
-$database = new \Apipokemon\Config\Database();
+$database = new \Apipokemon\Config\Database(); //teste de conexão com o banco de dados, utilizando a classe Database do namespace Apipokemon\Config
 $conn = $database->getConnection();
  
 if ($conn) {

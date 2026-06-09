@@ -1,6 +1,7 @@
 <?php
 
 //http://localhost/APIpokemon/treinador.php
+//TESTE DE CONEXÃO COM O BANCO DE DADOS E MODELO TREINADOR
 
 require_once __DIR__ . "/Config/Database.php";
 require_once __DIR__ . "/Models/Treinador.php";
