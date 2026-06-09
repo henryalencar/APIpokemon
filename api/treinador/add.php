@@ -1,6 +1,6 @@
 <?php 
 
-//http://localhost/API/api/pizza/add.php
+//http://localhost/API/api/treinador/add.php
 
 // Headers
 header('Access-Control-Allow-Origin: *');

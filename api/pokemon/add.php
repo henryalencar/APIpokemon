@@ -11,7 +11,7 @@ include_once '../../Config/Database.php';
 include_once '../../Models/Pokemon.php';
  
 use Apipokemon\Config\Database; // Importando a classe Database do namespace Apipokemon\Config
-use Apipokemon\Models\pokemon; // Importando a classe Pizza do namespace Apipokemon
+use Apipokemon\Models\Pokemon; // Importando a classe Pizza do namespace Apipokemon
 
 // Instanciar o banco de dados e conectar
 $database = new Database();
@@ -30,13 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             !empty($data->nome) &&
             !empty($data->tipo) &&
             !empty($data->nivel) &&
-            !empty($data->hp)
+            !empty($data->hp) &&
+            !empty($data->idtreinador)
         ) {
             // Atribuir os valores ao objeto POKEMON
             $pokemon->nome = $data->nome;
             $pokemon->tipo = $data->tipo;
             $pokemon->nivel = $data->nivel;
             $pokemon->hp = $data->hp;
+            $pokemon->idtreinador = $data->idtreinador;
  
             // Criar o pokemon
             if ($pokemon->add()) {
