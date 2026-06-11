@@ -92,6 +92,29 @@ class Treinador {
         return false;
 
     }
+    public function update(){  //ATUALIZA OS DADOS DE UMA TREINADOR EXISTENTE NO BANCO DE DADOS VIA PUT, RECEBENDO OS DADOS DA POKEMON VIA PROPRIEDADES DO OBJETO
+        $query = "UPDATE " . $this->tabela . " SET nome = :nome, idade = :idade, cidade = :cidade WHERE idTreinador = :id";
+ 
+        $stmt = $this->db->prepare($query);
+ 
+        // Limpa os dados para evitar SQL Injection e XSS
+        $this->nome=htmlspecialchars(strip_tags($this->nome));
+        $this->idade=htmlspecialchars(strip_tags($this->idade));
+        $this->cidade=htmlspecialchars(strip_tags($this->cidade));
+        $this->id=htmlspecialchars(strip_tags($this->id));
+ 
+        // Bind dos valores/ bindParam é um método do PDO que vincula um valor a um parâmetro nomeado ou de posição na consulta SQL. Ele é usado para evitar SQL Injection, garantindo que os valores sejam tratados como dados e não como parte da consulta SQL...
+        $stmt->bindParam(":nome", $this->nome);
+        $stmt->bindParam(":idade", $this->idade);
+        $stmt->bindParam(":cidade", $this->cidade);
+        $stmt->bindParam(":id", $this->id);
+ 
+        if($stmt->execute()){
+            return true;
+        }
+ 
+        return false;
+    }
     
 }
 
