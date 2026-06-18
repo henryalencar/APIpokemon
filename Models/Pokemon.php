@@ -109,7 +109,7 @@ class Pokemon{
         $this->hp=htmlspecialchars(strip_tags($this->hp));
         $this->id=htmlspecialchars(strip_tags($this->id));
  
-        // Bind dos valores/ bindParam é um método do PDO que vincula um valor a um parâmetro nomeado ou de posição na consulta SQL. Ele é usado para evitar SQL Injection, garantindo que os valores sejam tratados como dados e não como parte da consulta SQL...
+        // Bind dos valores/ bindParam é um método do PDO que vincula um valor a um parâmetro
         $stmt->bindParam(":nome", $this->nome);
         $stmt->bindParam(":tipo", $this->tipo);
         $stmt->bindParam(":nivel", $this->nivel);
@@ -122,4 +122,108 @@ class Pokemon{
  
         return false;
     }
+
+    public function delete(){  //EXCLUI UMA POKEMON EXISTENTE NO BANCO DE DADOS VIA DELETE, RECEBENDO O ID DA POKEMON VIA PROPRIEDADES DO OBJETO
+        $query = "DELETE FROM " . $this->tabela . " WHERE idPokemon = :id";
+ 
+        $stmt = $this->db->prepare($query);
+
+        $this->id=htmlspecialchars(strip_tags($this->id));
+ 
+        // Bind do ID
+        $stmt->bindParam(":id", $this->id);
+ 
+        if($stmt->execute()){
+            return true;
+        }
+ 
+        return false;
+    }
+
+    public function getTreinador(){  //VAI NO BANCO DE DADOS E TRAZ O TREINADOR ASSOCIADO A POKEMON COM O ID ESPECIFICADO
+    $query = 'SELECT
+    t.idTreinador,
+    t.nome AS treinador
+    FROM treinadores t
+    WHERE t.idTreinador = :id';
+ 
+        $stmt = $this->db->prepare($query);
+ 
+        $this->idtreinador=htmlspecialchars(strip_tags($this->idtreinador));
+ 
+        $stmt->bindParam(':id', $this->idtreinador);
+ 
+        $stmt->execute();
+ 
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+        public function getPokemonsTreinador(){
+
+    $query = "SELECT
+        idPokemon,
+        nome
+        FROM pokemons
+        WHERE idTreinador = :id";
+
+    $stmt = $this->db->prepare($query);
+
+    $stmt->bindParam(':id', $this->idtreinador);
+
+    $stmt->execute();
+
+    return $stmt;
+
+    }
+
+  public function getMaisVelozes(){
+                               
+    $query = "SELECT
+    idPokemon,
+    nome,
+    velocidade
+    FROM pokemons
+    ORDER BY velocidade DESC
+    LIMIT 5";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->execute();
+
+    return $stmt;
+
+}
+
+  public function getAtaque(){
+                               
+    $query = "SELECT
+    idPokemon,
+    nome,
+    ataque
+    FROM pokemons
+    ORDER BY ataque DESC
+    LIMIT 5";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->execute();
+
+    return $stmt;
+}
+
+public function getDefesa(){
+                               
+    $query = "SELECT
+    idPokemon,
+    nome,
+    defesa
+    FROM pokemons
+    ORDER BY defesa DESC
+    LIMIT 5";
+
+    $stmt = $this->db->prepare($query);
+    $stmt->execute();
+
+    return $stmt;
+
+}
+
 }
