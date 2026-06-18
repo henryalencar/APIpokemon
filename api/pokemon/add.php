@@ -8,7 +8,7 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Methods: POST');
  
 include_once '../../Config/Database.php';
-include_once '../../Models/Pokemon.php';
+include_once '../../Models/Pokemon.php'; 
  
 use Apipokemon\Config\Database; // Importando a classe Database do namespace Apipokemon\Config
 use Apipokemon\Models\Pokemon; // Importando a classe Pizza do namespace Apipokemon
