@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') { // Verificar se o método de requi
         ) { // Se os dados estiverem completos, atribuir os valores ao objeto Bebida
             $treinador->id = $data->id;
    
-            if ($treinador->delete() && $treinador->nome) {
+            if ($treinador->delete()) {
                 http_response_code(200);
                 echo json_encode(
                     array('Mensagem' => 'Treinador Deletado com Sucesso')

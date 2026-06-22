@@ -116,24 +116,32 @@ class Treinador {
         return false;
     }
 
-    public function delete(){  //DELETA UM TREINADOR EXISTENTE NO BANCO DE DADOS VIA DELETE, RECEBENDO O ID DO TREINADOR VIA PROPRIEDADES DO OBJETO
-        $query = "DELETE FROM " . $this->tabela . " WHERE idTreinador = :id";
- 
-        $stmt = $this->db->prepare($query);
- 
-        // 
-        $this->id=htmlspecialchars(strip_tags($this->id));
- 
-        // Bind do ID
-        $stmt->bindParam(":id", $this->id);
- 
-        if($stmt->execute()){
-            return true;
-        }
- 
-        return false;
+    public function delete(){
+
+    // apagar pokemons do treinador primeiro
+    $query = "DELETE FROM pokemons WHERE idTreinador = :id";
+
+    $stmt = $this->db->prepare($query);
+
+    $stmt->bindParam(":id", $this->id);
+
+    $stmt->execute();
+
+
+    // depois apagar treinador
+    $query = "DELETE FROM treinadores WHERE idTreinador = :id";
+
+    $stmt = $this->db->prepare($query);
+
+    $stmt->bindParam(":id", $this->id);
+
+
+    if($stmt->execute()){
+        return true;
     }
-    
+
+    return false;
+}
 }
 
 
