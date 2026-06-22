@@ -25,13 +25,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') { // Verificar se o mÃ©todo de requisiÃ
             !empty($data->nome) &&
             !empty($data->tipo) &&
             !empty($data->nivel) &&
-            !empty($data->hp)
+            !empty($data->hp) &&
+            !empty($data->velocidade) &&
+            !empty($data->ataque) &&
+            !empty($data->defesa) 
         ) { // Se os dados estiverem completos, atribuir os valores ao objeto Pokemon
             $pokemon->id = $data->id;
             $pokemon->nome = $data->nome;
             $pokemon->tipo = $data->tipo;
             $pokemon->nivel = $data->nivel;
             $pokemon->hp = $data->hp;
+            $pokemon->velocidade = $data->velocidade;
+            $pokemon->ataque = $data->ataque;
+            $pokemon->defesa = $data->defesa;
 
             if ($pokemon->update()) {
                 http_response_code(200);

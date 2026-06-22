@@ -17,6 +17,12 @@ class Pokemon{
 
     public $idtreinador;
 
+    public $velocidade;
+
+    public $ataque;
+
+    public $defesa;
+
     private $db;
 
     private $tabela = "pokemons";
@@ -39,12 +45,15 @@ class Pokemon{
 
     public function get(){  // VAI NO BANCO DE DADOS E TRAZ APENAS A POKEMON COM O ID ESPECIFICADO
     // Cria a consulta
-        $query = 'SELECT
+        $query = 'SELECT 
     p.idPokemon,
     p.nome,
     p.tipo,
     p.nivel,
     p.hp,
+    p.velocidade
+    p.ataque 
+    p.defesa
     t.nome AS treinador
     FROM pokemons p
     LEFT JOIN treinadores t
@@ -54,7 +63,7 @@ class Pokemon{
         // Prepara a query
         $stmt = $this->db->prepare($query);
  
-        // Vincula o ID
+        // Vincula o ID 
         $stmt->bindParam(':id', $this->id);
        
         // Executa a query
@@ -67,12 +76,15 @@ class Pokemon{
         $this->tipo = $row['tipo'];
         $this->nivel = $row['nivel'];
         $this->hp = $row['hp'];
-        $this->idtreinador = $row['idTreinador'];
+        $this->velocidade = $row['velocidade'];
+        $this->ataque = $row['ataque'];
+        $this->defesa = $row['defesa'];
+        $this->idtreinador = $row['idTreinador']; 
  
     }
 
     public function add(){  //ADICIONA UMA NOVA POKEMON NO BANCO DE DADOS VIA POST, RECEBENDO OS DADOS DA POKEMON VIA PROPRIEDADES DO OBJETO
-        $query = "INSERT INTO " . $this->tabela . "(nome, tipo, nivel, hp, idTreinador) VALUES (:nome, :tipo, :nivel, :hp, :idTreinador)";
+        $query = "INSERT INTO " . $this->tabela . "(nome, tipo, nivel, hp, velocidade, ataque, defesa,  idTreinador) VALUES (:nome, :tipo, :nivel, :hp, :velocidade, :ataque, :defesa, :idTreinador)";
 
         $stmt = $this->db->prepare($query);
 
@@ -81,6 +93,9 @@ class Pokemon{
         $this->tipo=htmlspecialchars(strip_tags($this->tipo));
         $this->nivel=htmlspecialchars(strip_tags($this->nivel));
         $this->hp=htmlspecialchars(strip_tags($this->hp));
+        $this->velocidade=htmlspecialchars(strip_tags($this->velocidade));
+        $this->ataque=htmlspecialchars(strip_tags($this->ataque));
+        $this->defesa=htmlspecialchars(strip_tags($this->defesa));
         $this->idtreinador=htmlspecialchars(strip_tags($this->idtreinador));
 
         // Bind dos valores
@@ -88,6 +103,9 @@ class Pokemon{
         $stmt->bindParam(":tipo", $this->tipo);
         $stmt->bindParam(":nivel", $this->nivel);
         $stmt->bindParam(":hp", $this->hp);
+        $stmt->bindParam("velocidade", $this->velocidade);
+        $stmt->bindParam("ataque", $this->ataque);
+        $stmt->bindParam("defesa", $this->defesa);
         $stmt->bindParam(":idTreinador", $this->idtreinador);
 
         if($stmt->execute()){
@@ -98,7 +116,7 @@ class Pokemon{
 
     }
     public function update(){  //ATUALIZA OS DADOS DE UMA POKEMON EXISTENTE NO BANCO DE DADOS VIA PUT, RECEBENDO OS DADOS DA POKEMON VIA PROPRIEDADES DO OBJETO
-        $query = "UPDATE " . $this->tabela . " SET nome = :nome, tipo = :tipo, nivel = :nivel, hp = :hp WHERE idPokemon = :id";
+        $query = "UPDATE " . $this->tabela . " SET nome = :nome, tipo = :tipo, nivel = :nivel, hp = :hp = :velocidade, = :ataque, = :defesa,  WHERE idPokemon = :id";
  
         $stmt = $this->db->prepare($query);
  
@@ -107,6 +125,10 @@ class Pokemon{
         $this->tipo=htmlspecialchars(strip_tags($this->tipo));
         $this->nivel=htmlspecialchars(strip_tags($this->nivel));
         $this->hp=htmlspecialchars(strip_tags($this->hp));
+        $this->velocidade=htmlspecialchars(strip_tags($this->velocidade));
+        $this->ataque=htmlspecialchars(strip_tags($this->ataque));
+        $this->defesa=htmlspecialchars(strip_tags($this->defesa));
+
         $this->id=htmlspecialchars(strip_tags($this->id));
  
         // Bind dos valores/ bindParam é um método do PDO que vincula um valor a um parâmetro
@@ -114,6 +136,9 @@ class Pokemon{
         $stmt->bindParam(":tipo", $this->tipo);
         $stmt->bindParam(":nivel", $this->nivel);
         $stmt->bindParam(":hp", $this->hp);
+        $stmt->bindParam("velocidade", $this->velocidade);
+        $stmt->bindParam("ataque", $this->ataque);
+        $stmt->bindParam("defesa", $this->defesa);
         $stmt->bindParam(":id", $this->id);
  
         if($stmt->execute()){

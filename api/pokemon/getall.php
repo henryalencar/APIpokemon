@@ -40,11 +40,15 @@ try {
             extract($row);
 
 $pokemon_item = array(
-    "id" => $idPokemon,
-    "nome" => $nome,
-    "tipo" => $tipo,
-    "nivel" => $nivel,
-    "hp" => $hp,
+  "id" => $pokemon->id,
+  "nome" => $pokemon->nome,
+  "tipo" => $pokemon->tipo,
+  "nivel" => $pokemon->nivel,
+  "hp" => $pokemon->hp,
+  "velocidade" => $pokemon->velocidade,
+  "ataque"=> $pokemon->ataque,
+  "defesa"=> $pokemon->defesa,
+  
     //"treinador" => $treinador
 );
             array_push($pokemons_arr, $pokemon_item);

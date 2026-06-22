@@ -31,6 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             !empty($data->tipo) &&
             !empty($data->nivel) &&
             !empty($data->hp) &&
+            !empty($data->velocidade)&&
+            !empty($data->ataque) &&
+            !empty($data->defesa) &&
             !empty($data->idtreinador)
         ) {
             // Atribuir os valores ao objeto POKEMON
@@ -38,6 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $pokemon->tipo = $data->tipo;
             $pokemon->nivel = $data->nivel;
             $pokemon->hp = $data->hp;
+            $pokemon->velocidade = $data->velocidade;
+            $pokemon->ataque = $data->ataque;
+            $pokemon->defesa = $data->defesa;
             $pokemon->idtreinador = $data->idtreinador;
  
             // Criar o pokemon

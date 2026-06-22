@@ -43,7 +43,10 @@ try {
                 "nome" => $pokemon->nome,
                 "tipo" => $pokemon->tipo,
                 "nivel" => $pokemon->nivel,
-                "hp" => $pokemon->hp
+                "hp" => $pokemon->hp,
+                "velocidade" => $pokemon->velocidade,
+                "ataque"=> $pokemon->ataque,
+                "defesa"=> $pokemon->defesa,
             );
 
             http_response_code(200);  //SUCESSO
