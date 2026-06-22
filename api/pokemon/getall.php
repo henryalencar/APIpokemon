@@ -39,7 +39,7 @@ try {
 
             extract($row);
 
-$pokemon_item = array(
+ $pokemon_item = array(
   "id" => $pokemon->id,
   "nome" => $pokemon->nome,
   "tipo" => $pokemon->tipo,
@@ -48,7 +48,7 @@ $pokemon_item = array(
   "velocidade" => $pokemon->velocidade,
   "ataque"=> $pokemon->ataque,
   "defesa"=> $pokemon->defesa,
-  
+
     //"treinador" => $treinador
 );
             array_push($pokemons_arr, $pokemon_item);
