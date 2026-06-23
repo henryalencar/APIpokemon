@@ -33,27 +33,28 @@ class Pokemon{
         $this->db = $db;
     }
     
-    public function getall(){   //VAI NO BANCO DE DADOS E TRAZ TODAS AS POKEMONS CADASTRADAS
-        $query = "SELECT * FROM " . $this->tabela;
+public function getall(){
 
-        $stmt = $this->db->prepare($query); //preparando a query para ser executada, evitando SQL Injection
+    $query = "SELECT * FROM " . $this->tabela;
 
-        $stmt->execute();  //stmt é o objeto que contém o resultado da consulta, e execute() executa a consulta preparada
+    $stmt = $this->db->prepare($query);
 
-        return $stmt;
-    }
+    $stmt->execute();
 
-    public function get(){  // VAI NO BANCO DE DADOS E TRAZ APENAS A POKEMON COM O ID ESPECIFICADO
-    // Cria a consulta
+    return $stmt;
+}
+
+    public function get(){  // VAI NO BANCO DE DADOS E TRAZ APENAS A POKEMON COM O ID ESPECIFICADO  
+    
+
+    // Cria a consulta  //p.velocidade   p.ataque  p.ataque
         $query = 'SELECT 
     p.idPokemon,
     p.nome,
     p.tipo,
     p.nivel,
     p.hp,
-    p.velocidade
-    p.ataque 
-    p.defesa
+
     t.nome AS treinador
     FROM pokemons p
     LEFT JOIN treinadores t
@@ -76,10 +77,10 @@ class Pokemon{
         $this->tipo = $row['tipo'];
         $this->nivel = $row['nivel'];
         $this->hp = $row['hp'];
-        $this->velocidade = $row['velocidade'];
-        $this->ataque = $row['ataque'];
-        $this->defesa = $row['defesa'];
-        $this->idtreinador = $row['idTreinador']; 
+        // $this->velocidade = $row['velocidade'];
+        // $this->ataque = $row['ataque'];
+        // $this->defesa = $row['defesa'];
+        // $this->idtreinador = $row['idTreinador']; 
  
     }
 

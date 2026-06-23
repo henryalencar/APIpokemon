@@ -26,6 +26,7 @@ try {
 
     // Chamar o método getall() para buscar os pokemons
     $stmt = $pokemon->getall();
+
     $num = $stmt->rowCount();
 
     // Verificar se mais de 0 registros foram encontrados
@@ -37,38 +38,37 @@ try {
         // Percorrer o resultado da consulta
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-            extract($row);
 
- $pokemon_item = array(
-  "id" => $pokemon->id,
-  "nome" => $pokemon->nome,
-  "tipo" => $pokemon->tipo,
-  "nivel" => $pokemon->nivel,
-  "hp" => $pokemon->hp,
-  "velocidade" => $pokemon->velocidade,
-  "ataque"=> $pokemon->ataque,
-  "defesa"=> $pokemon->defesa,
+            $pokemon_item = array(
+                "id" => $row['id'],
+                "nome" => $row['nome'],
+                "tipo" => $row['tipo'],
+                "nivel" => $row['nivel'],
+                "hp" => $row['hp'],
+                "velocidade" => $row['velocidade'],
+                "ataque" => $row['ataque'],
+                "defesa" => $row['defesa']
+            );
 
-    //"treinador" => $treinador
-);
+
             array_push($pokemons_arr, $pokemon_item);
         }
 
-        // Código 200 OK
+
         http_response_code(200);
 
-        // Retornar JSON
         echo json_encode($pokemons_arr);
+
 
     } else {
 
-        // Código 404 Not Found
         http_response_code(404);
 
         echo json_encode(
             array("Mensagem" => "Nenhum pokemon encontrado.")
         );
     }
+
 
 } catch (Exception $e) {
 
@@ -81,4 +81,5 @@ try {
     echo json_encode(
         array("erro" => $e->getMessage())
     );
+
 }
